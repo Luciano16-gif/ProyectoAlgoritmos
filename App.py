@@ -1,8 +1,13 @@
 # App.py
 
-from MatchInfo import MatchInfo
-from stadium import Stadium
-from teams import Teams
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from proyectoLucianoMinardo.gestionDePartidosyEstadios.MatchInfo import MatchInfo
+from proyectoLucianoMinardo.gestionDePartidosyEstadios.stadium import Stadium
+from proyectoLucianoMinardo.gestionDePartidosyEstadios.teams import Teams
 
 class App:
     def __init__(self, data) -> None:
@@ -48,7 +53,7 @@ class App:
             None
         """
         for team in self.data['teams']:
-            self.teams.append(Teams(team['country'], team['fifa_code'], team['group']))
+            self.teams.append(Teams(team['id'], team['name'], team['code'], team['group']))
 
     def register_stadiums(self):
         """
@@ -60,7 +65,7 @@ class App:
             None
         """
         for stadium in self.data['stadiums']:
-            self.stadiums.append(Stadium(stadium['name'], stadium['location']))
+            self.stadiums.append(Stadium(stadium['id'],stadium['name'], stadium['city']))
 
     def register_matches(self):
         """
@@ -75,10 +80,10 @@ class App:
             None
         """
         for match in self.data['matches']:
-            local_team = next((team for team in self.teams if team.fifa_code == match['local_team']), None)
-            visitor_team = next((team for team in self.teams if team.fifa_code == match['visitor_team']), None)
-            stadium = next((stadium for stadium in self.stadiums if stadium.name == match['stadium']), None)
-            self.matches.append(MatchInfo(local_team, visitor_team, match['time'], stadium))
+            local_team = next((team for team in self.teams if team.fifa_code == match['home']), None)
+            visitor_team = next((team for team in self.teams if team.fifa_code == match['away']), None)
+            stadium = next((stadium for stadium in self.stadiums if stadium.id == match['stadium_id']), None)
+            self.matches.append(MatchInfo(match['id'], local_team, visitor_team, match['date'], stadium))
 
 
 

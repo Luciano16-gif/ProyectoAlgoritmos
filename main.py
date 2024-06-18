@@ -1,6 +1,10 @@
 # main.py
+import sys
+import os
 
-from App import App
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from proyectoLucianoMinardo.App import App
 import requests
 
 data = {
@@ -40,7 +44,7 @@ def main():
     for key, url in urls.items():
         fetch_data(url, key)
 
-    App(data)
+    app = App(data)
 
 if __name__ == "__main__":
     main()

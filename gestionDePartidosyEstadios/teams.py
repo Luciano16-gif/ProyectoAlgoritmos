@@ -1,7 +1,7 @@
 # teams.py
 
 class Teams:
-    def __init__(self, country, fifa_code, group):
+    def __init__(self, id, country, fifa_code, group):
         """
         Initializes a new instance of the Teams class.
 
@@ -13,6 +13,7 @@ class Teams:
         Returns:
             None
         """
+        self.id = id
         self.country = country
         self.fifa_code = fifa_code
         self.group = group

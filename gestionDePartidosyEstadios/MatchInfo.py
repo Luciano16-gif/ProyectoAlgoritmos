@@ -1,7 +1,7 @@
 # MatchInfo.py
 
 class MatchInfo:
-    def __init__(self, local_team, visitor_team, time, stadium) -> None:
+    def __init__(self, id, local_team, visitor_team, time, stadium) -> None:
         """
         Initializes a new instance of the MatchInfo class.
     
@@ -14,6 +14,7 @@ class MatchInfo:
         Returns:
             None
         """
+        self.id = id
         self.local_team = local_team
         self.visitor_team = visitor_team
         self.time = time
