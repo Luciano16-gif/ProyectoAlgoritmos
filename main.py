@@ -1,10 +1,10 @@
 # main.py
-import sys
-import os
+#import sys
+#import os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from proyectoLucianoMinardo.App import App
+from funcionalidad.App import App
 import requests
 
 data = {
@@ -45,6 +45,9 @@ def main():
         fetch_data(url, key)
 
     app = App(data)
+    print("Funcionando")
+
+    app.menu()
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-from proyectoLucianoMinardo.gestionDeClientes.client import Client
+from gestionDeClientes.client import Client
 
 class Ticket:
     def __init__(self, cliente, partido, tipo_entrada, asiento):
