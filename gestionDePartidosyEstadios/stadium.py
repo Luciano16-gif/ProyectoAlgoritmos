@@ -1,7 +1,7 @@
 #stadium.py
 
 class Stadium:
-    def __init__(self, id, name, location) -> None:
+    def __init__(self, id, name, location, capacity_general, capacity_vip) -> None:
         """
         Initializes a new instance of the Stadium class.
 
@@ -15,6 +15,10 @@ class Stadium:
         self.id = id
         self.name = name
         self.location = location
+        self.capacity_general = capacity_general
+        self.capacity_vip = capacity_vip
+        self.taken_vip_seats = [1]
+        self.taken_general_seats = [1]
     
     def __str__(self) -> str:
         """

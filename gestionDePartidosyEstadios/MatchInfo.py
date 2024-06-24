@@ -19,6 +19,7 @@ class MatchInfo:
         self.visitor_team = visitor_team
         self.date = date
         self.stadium = stadium  
+        self.tickets = []
 
     def __str__(self) -> str:
         return f"{self.local_team.name} (Local) vs, Visitante: {self.visitor_team.name}, Hora: {self.date}, Estadio: {self.stadium.name}, {self.stadium.location}\nId del partido: {self.id}"
