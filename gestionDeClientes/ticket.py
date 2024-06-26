@@ -6,7 +6,7 @@ class Ticket:
         self.match = match
         self.ticket_type = ticket_type
         self.seat = seat
-        self.code = f"{client.id}"
+        self.code = client.id
 
     def __str__(self):
-        return f"Boleto: {self.code}, Partido: {self.match.id}, Tipo de entrada: {self.ticket_type}, Asiento: {self.seat}"
+        return f"Código: {self.code}, Partido: {self.match.id}, Tipo de entrada: {self.ticket_type}, Asiento: {self.seat}"

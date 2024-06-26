@@ -1,23 +1,92 @@
 from gestionDeClientes.client import Client
 from gestionDeClientes.ticket import Ticket
 
-def create_client():
+def get_user_input(prompt, input_type=str, validator=None):
     while True:
+        user_input = input(prompt)
+        if user_input.lower() == 'menu':
+            return 'M'
         try:
-            print("Porfavor ingresa tus datos")
-            name = input("Ingresa tu nombre: ")
-            id = int(input("Ingresa tu numero de cedula: "))
-            age = int(input("Ingresa tu edad: "))
-            return Client(name, id, age)
+            user_input = input_type(user_input)
+            if validator and not validator(user_input):
+                raise ValueError
+            return user_input
         except ValueError:
-            print("Porfavor introduce un valor válido") 
+            print("Por favor, introduce un valor válido.")
+
+def is_alpha(string):
+    """
+    Check if a given string consists only of alphabetic characters.
+
+    Args:
+        string (str): The string to be checked.
+
+    Returns:
+        bool: True if the string consists only of alphabetic characters, False otherwise.
+    """
+
+    return string.isalpha()
+
+def age_limit(age):
+    """
+    Check if the given age is within the valid range of 0 to 130.
+
+    Args:
+        age (int): The age to be checked.
+
+    Returns:
+        bool: True if the age is within the valid range, False otherwise.
+    """
+    if age < 0 or age > 130:
+        print("Porfavor introduce una edad entre 0 y 130")
+        return False
+    return True
+
+def id_check(id):
+    """
+    Check if the given ID is within the valid range of 1 to 2000000000.
+
+    Args:
+        id (int): The ID to be checked.
+
+    Returns:
+        bool: True if the ID is within the valid range, False otherwise.
+    """
+    if id < 1 or id > 2000000000:
+        print("Porfavor introduce un ID entre 1 y 2000000000")
+        return False
+    return True
+
+def name_model(name):
+    name = name.lower()
+    name = name[0].upper() + name[1:]
+
+
+def create_client():
+        print("Por favor ingresa tus datos (o ingresa 'menu' para volver al menú)")
+        name = get_user_input("Ingresa tu nombre: ", str, validator=is_alpha)
+        if name == 'M':
+            return 'M'
+        name = name_model(name)
+        id = get_user_input("Ingresa tu número de cédula: ", int, validator=id_check)
+        if id == 'M':
+            return 'M'
+        age = get_user_input("Ingresa tu edad: ", int, validator=age_limit)
+        if age == 'M':
+            return 'M'
+        return Client(name, id, age)
 
 def type_ticket():
+    """
+    A function that prompts the user to select a ticket type between General and VIP.
+    If the user enters an invalid option, it prompts for a valid choice.
+    Returns a tuple containing the selected ticket type (General or VIP) and its corresponding price.
+    """
     print("Coloque el número del tipo de boleto que desea comprar: \n1. General\n2. Vip\n")
     while True:
         try:
             option = int(input())
-            if option != 1 and option != 2:
+            if option not in [1, 2]:
                 print("Porfavor introduce un valor entre 1 y 2")
             else:
                 break
@@ -57,3 +126,5 @@ def vampire_number(id):
                             return True
     
         return False
+
+
