@@ -65,6 +65,11 @@ class App:
         """
         for stadium in self.data['stadiums']:
             self.stadiums.append(Stadium(stadium['id'],stadium['name'], stadium['city'], stadium['capacity'][0], stadium['capacity'][1], stadium['restaurants']))
+            for stadium in self.stadiums:
+                for restaurant in stadium.restaurants:
+                    for product in restaurant.products:
+                        print(type(product.price))
+
         
     def register_matches(self):
         """
@@ -312,12 +317,14 @@ class App:
         while True:
             print("-----------------------------------------")
             print("Coloca el número de lo que quieres buscar, para devolverte a este menu escribe 'menu': ")
-            print("1. Buscar por nombre")
-            print("2. Buscar por tipo")
-            print("3. Buscar por rango de precio")
-            print("4. Listar todos los productos")
-            print("5. Ver carrito, completar compra, borrar productos del carrito")
-            print("6. Salir")
+            print("Recomendación: Primero selecciona 4 para ver todos los productos")
+            print("1. Buscar por nombre para comprar")
+            print("2. Buscar por tipo para comprar")
+            print("3. Buscar por rango de precio para comprar")
+            print("4. Listar todos los productos para comprar")
+            print("5. Ver todos los restaurantes disponibles y sus productos")
+            print("6. Ver carrito, completar compra, borrar productos del carrito")
+            print("7. Salir")
             print("-----------------------------------------")
 
             option = get_user_input("", int)
@@ -404,36 +411,40 @@ class App:
                 # List all products
                 for restaurant in restaurants:
                     for i, product in enumerate(restaurant.products, 1):
+                        temp_products.append(product)
+
+                if not temp_products:
+                    print("No se han encontrado resultados")
+                    continue
+                else:
+                    for i, product in enumerate(temp_products, 1):
                         print(f"[{i}] {product}")
 
-                validate_product(restaurant.products, client)
+                validate_product(temp_products, client)
                 for car in client.cart:
                     print(car)
             elif option == 5:
-                show_cart(client)
+                for restaurant in restaurants:
+                    print(restaurant)
             elif option == 6:
-                break
+                show_cart(client)
+            elif option == 7:
+                print("Hasta pronto!!!")
+                return
             else:
-                print("Porfavor coloque una opcion válida")
+                print("Porfavor coloque una opcion válida") 
 
-
-
-                                
-                
-                    
-
-                
 
     def menu(self):
         while True:
             try:
                 print("-----------------------------------------")
                 print("Coloca el número de lo que quieres buscar, para devolverte al menu escribe 'menu': ")
-                print("1. Buscar partidas por equipo")
+                print("1. Buscar partidas por equipo (en ingles)")
                 print("2. Buscar las partidas por estadio")
                 print("3. Listar partidos por fecha")
                 print("4. Listar todos los partidos")
-                print("5. Comprar una entrada")
+                print("5. Comprar una entrada con la id del partido")                               
                 print("6. Entrar al estadio")
                 print("10. Salir")
                 print("-----------------------------------------")
