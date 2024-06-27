@@ -2,10 +2,10 @@ from gestionDePartidosyEstadios.MatchInfo import MatchInfo
 from gestionDePartidosyEstadios.stadium import Stadium
 from gestionDePartidosyEstadios.teams import Teams
 from gestionDeClientes.ticket import Ticket
-from funcionalidad.buyTicket import create_client, type_ticket, vampire_number
+from funcionalidad.buyTicket import create_client, type_ticket
 from funcionalidad.getUserInput import is_alpha, get_user_input, is_in_options
-from funcionalidad.buyProduct import validate_product
-
+from funcionalidad.buyProduct import validate_product, are_you_sure, show_cart
+from funcionalidad.specialNumbers import vampire_number
 
 class App:
     def __init__(self, data) -> None:
@@ -213,21 +213,25 @@ class App:
         
         if vampire_number(client.id) == True:
             print("Felicidades, su número de cédula es un número vampiro!, disfrute de un 50% de descuento")
-            discounted_price = price / 2 
-            print(f"El costo de su entrada es de: {discounted_price:.2f}$ más el 16% de IVA para un total de \n{(discounted_price * 1.16):.2f}$") 
-            # the ":.2f" part is to round the number to 2 decimal places
+            price = price / 2 
+            final_price = round(price * 1.16, 2)
+            print(f"El costo de su entrada es de: {price}$ más el 16% de IVA para un total de \n{(final_price)}$") 
         else:
-            print(f"El precio de la entrada {ticket_type} es: {price}$ más el 16% de IVA para un total de \n{(price * 1.16):.2f}$")
+            final_price = round(price * 1.16, 2)
+            print(f"El precio de la entrada {ticket_type} es: {price}$ más el 16% de IVA para un total de \n{(final_price)}$")
 
         print("--------------------------------------------")
         print("Seguro que desea comprar esta entrada? (s/n)")
 
-        answer = get_user_input("", str, lambda x: is_in_options(x, ['s', 'n'])).lower()
-        if answer == 'M':
-            return 
-        elif answer == 'n':
+        answer = get_user_input("", str, lambda x: is_in_options(x, ['s', 'n']), False).lower()
+        # Lambda functions are small anonymous functions defined with the lambda keyword. 
+        # They can have any number of arguments, but only one expression. The expression is evaluated and returned.
+        # Lambda was taken from the official Python documentation.
+        if answer == 'n':
             print("Entrada no comprada")
             return
+        
+        client.spent += final_price # Add the cost of the ticket to the client's total spent
 
         self.create_map(id, ticket_type)
         print("Coloque el número del asiento en el que quiere la entrada, si el asiento esta rojo es que no esta disponible (la fila frontal es la 1): ")
@@ -311,10 +315,9 @@ class App:
             print("1. Buscar por nombre")
             print("2. Buscar por tipo")
             print("3. Buscar por rango de precio")
-            print("4. Listar todos los platos")
-            print("6. Listar todas las bebidas")
-            print("7. Completar compra")
-            print("10. Salir")
+            print("4. Listar todos los productos")
+            print("5. Ver carrito, completar compra, borrar productos del carrito")
+            print("6. Salir")
             print("-----------------------------------------")
 
             option = get_user_input("", int)
@@ -328,23 +331,90 @@ class App:
                     for product in restaurant.products:
                         if name.lower() in product.name.lower():
                             temp_products.append(product)
+
                 if not temp_products:
                     print("No se han encontrado resultados")
                     continue
                 else:
                     for i, product in enumerate(temp_products, 1):
                         print(f"[{i}] {product}")
-                                
-                print("Ponga el número del plato que desee agregar a la compra")
                 
                 validate_product(temp_products, client)
                 for car in client.cart:
                     print(car)
+            elif option == 2:
+                # Search by type
+                
+                adicional_values = ["plate", "package", "alcoholic", "non-alcoholic"] # list of the true values of adicional
+                additional_names = ["Plato", "Paquete", "Bebida alcoholica", "Bebida no alcoholica"] # list of the names that will be shown
 
-            elif option == 10:
+                for i, adittional in enumerate(additional_names, 1):
+                    print(f"[{i}] {adittional}")
+                    print("Ponga el número del tipo de producto que desea comprar")
+
+                option = get_user_input("", int, lambda x: is_in_options(x, [1, 2, 3, 4]))
+                if option == "M":
+                    continue
+                product_type = adicional_values[option - 1] # get the true value of adicional
+
+
+                for restaurant in restaurants:
+                    for product in restaurant.products:
+                        if product_type in product.type:
+                            temp_products.append(product)
+
+                if not temp_products:
+                    print("No se han encontrado resultados")
+                    continue
+                else:
+                    for i, product in enumerate(temp_products, 1):
+                        print(f"[{i}] {product}")
+
+                validate_product(temp_products, client)
+                for car in client.cart:
+                    print(car) 
+
+            elif option == 3:
+                # Search by price range
+                print("Ponga el rango de precio que desea comprar")
+                min_price = get_user_input("", int, lambda x: x >= 0)
+                if min_price == "M":
+                    continue
+                max_price = get_user_input("", int, lambda x: x >= min_price)
+                if max_price == "M":
+                    continue
+                
+
+                for restaurant in restaurants:
+                    for product in restaurant.products:
+                        if min_price <= product.price <= max_price:
+                            temp_products.append(product)
+
+                if not temp_products:
+                    print("No se han encontrado resultados")
+                    continue
+                else:
+                    for i, product in enumerate(temp_products, 1):
+                        print(f"[{i}] {product}")
+                
+                validate_product(temp_products, client)
+                for car in client.cart:
+                    print(car)
+            elif option == 4:
+                # List all products
+                for restaurant in restaurants:
+                    for i, product in enumerate(restaurant.products, 1):
+                        print(f"[{i}] {product}")
+
+                validate_product(restaurant.products, client)
+                for car in client.cart:
+                    print(car)
+            elif option == 5:
+                show_cart(client)
+            elif option == 6:
                 break
             else:
-                print("Porfavor coloque una opcion valida")
+                print("Porfavor coloque una opcion válida")
 
 
 
@@ -405,8 +475,10 @@ class App:
                     if client is not None:
                         print(client)
                     if ticket == "VIP":
-                        print("Su entrada es de VIP, lo que significa que tiene acceso a los restaurantes!!!")
+                        print("Bienvenido, su entrada es VIP, lo que significa que tiene acceso a los restaurantes!!!")
                         self.restaurant_menu(client, restaurants)
+                    else:
+                        print("Bienvenido, su entrada es general, no tiene acceso a los restaurantes")
     
                 elif option == 10:
                     print("Hasta pronto!")

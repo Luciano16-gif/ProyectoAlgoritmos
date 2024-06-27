@@ -10,6 +10,7 @@ class Client:
         self.total_tickets_vip = 0
         self.total_tickets = 0
         self.cart = []
+        self.spent = 0
 
     def __str__(self):
         tickets_str = "\n  ".join([str(ticket) for ticket in self.match_tickets])

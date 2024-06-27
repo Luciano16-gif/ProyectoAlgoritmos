@@ -1,7 +1,7 @@
-def get_user_input(prompt, input_type=str, validator=None):
+def get_user_input(prompt, input_type=str, validator=None, go_to_menu=True):
     while True:
         user_input = input(prompt)
-        if user_input.lower() == 'menu':
+        if go_to_menu and user_input.lower() == 'menu':
             return 'M'
         try:
             user_input = input_type(user_input)
