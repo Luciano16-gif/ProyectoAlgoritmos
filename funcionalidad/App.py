@@ -1,9 +1,10 @@
 from gestionDePartidosyEstadios.MatchInfo import MatchInfo
 from gestionDePartidosyEstadios.stadium import Stadium
 from gestionDePartidosyEstadios.teams import Teams
-from gestionDeClientes.client import Client
 from gestionDeClientes.ticket import Ticket
-from funcionalidad.buyTicket import create_client, type_ticket, vampire_number, is_alpha, get_user_input, name_model
+from funcionalidad.buyTicket import create_client, type_ticket, vampire_number
+from funcionalidad.getUserInput import is_alpha, get_user_input, is_in_options
+from funcionalidad.buyProduct import validate_product
 
 
 class App:
@@ -184,7 +185,8 @@ class App:
         print()
 
     # Handles the purchase of a ticket for a specific match
-    def create_ticket(self, id):
+    def create_ticket(self):
+        id = get_user_input("Para comprar una entrada, introduce el id del partido: ")
         match = next((match for match in self.matches if match.id == id), None)
         if not match:
             print("Partido no encontrado")
@@ -219,19 +221,13 @@ class App:
 
         print("--------------------------------------------")
         print("Seguro que desea comprar esta entrada? (s/n)")
-        while True:
-            try:
-                answer = str(input())
-                if answer.lower() not in ['s', 'n']:
-                    print("Porfavor introduce s o n")
-                else:
-                    if answer.lower() == 's':
-                        break
-                    else:
-                        print("Entrada no comprada")
-                        return
-            except ValueError:
-                print("Porfavor introduce un valor válido")
+
+        answer = get_user_input("", str, lambda x: is_in_options(x, ['s', 'n'])).lower()
+        if answer == 'M':
+            return 
+        elif answer == 'n':
+            print("Entrada no comprada")
+            return
 
         self.create_map(id, ticket_type)
         print("Coloque el número del asiento en el que quiere la entrada, si el asiento esta rojo es que no esta disponible (la fila frontal es la 1): ")
@@ -279,7 +275,6 @@ class App:
         else:
             self.clients.append(client)
 
-    
     def enter_stadium(self):
         match_id = get_user_input("Coloca el ID del partido: ")
         if match_id == "M":
@@ -303,12 +298,60 @@ class App:
             print("Su entrada ha sido validada")
             print(ticket)
             match.used_tickets.append(ticket)
-            return ticket.client
+            return ticket.client, ticket.ticket_type, match.stadium.restaurants
         else:
             print("No ha sido posible validar su entrada")
 
             
+    def restaurant_menu(self, client, restaurants):
+        temp_products = []
+        while True:
+            print("-----------------------------------------")
+            print("Coloca el número de lo que quieres buscar, para devolverte a este menu escribe 'menu': ")
+            print("1. Buscar por nombre")
+            print("2. Buscar por tipo")
+            print("3. Buscar por rango de precio")
+            print("4. Listar todos los platos")
+            print("6. Listar todas las bebidas")
+            print("7. Completar compra")
+            print("10. Salir")
+            print("-----------------------------------------")
+
+            option = get_user_input("", int)
+            if option == 1:
+                name = get_user_input("Coloca el nombre de lo que desee comprar: ", str, validator=is_alpha)
+
+                if name == "M":
+                    continue
+
+                for restaurant in restaurants:
+                    for product in restaurant.products:
+                        if name.lower() in product.name.lower():
+                            temp_products.append(product)
+                if not temp_products:
+                    print("No se han encontrado resultados")
+                    continue
+                else:
+                    for i, product in enumerate(temp_products, 1):
+                        print(f"[{i}] {product}")
+                                
+                print("Ponga el número del plato que desee agregar a la compra")
                 
+                validate_product(temp_products, client)
+                for car in client.cart:
+                    print(car)
+
+            elif option == 10:
+                break
+            else:
+                print("Porfavor coloque una opcion valida")
+
+
+
+                                
+                
+                    
+
                 
 
     def menu(self):
@@ -354,15 +397,16 @@ class App:
                     self.list_all_matches()
     
                 elif option == 5:
-                    id = get_user_input("Para comprar una entrada, introduce el id del partido: ")
-                    if id == "M":
-                        continue
-                    self.create_ticket(id)
+
+                    self.create_ticket()
 
                 elif option == 6:
-                    client = self.enter_stadium()
+                    client, ticket, restaurants = self.enter_stadium()
                     if client is not None:
                         print(client)
+                    if ticket == "VIP":
+                        print("Su entrada es de VIP, lo que significa que tiene acceso a los restaurantes!!!")
+                        self.restaurant_menu(client, restaurants)
     
                 elif option == 10:
                     print("Hasta pronto!")

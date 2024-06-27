@@ -24,6 +24,9 @@ class Restaurant:
         productos_str = "\n  ".join([f"[{i}] {product}" for i, product in enumerate(self.products, 1)])
         # .join() was taken out of the official python documentation
         return f"{self.name} con productos:\n  {productos_str}"
+    
+    def show_name(self):
+        return f"{self.name}"
 
 
 class Stadium:

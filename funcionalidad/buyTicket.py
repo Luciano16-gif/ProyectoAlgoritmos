@@ -1,68 +1,24 @@
 from gestionDeClientes.client import Client
 from gestionDeClientes.ticket import Ticket
-
-def get_user_input(prompt, input_type=str, validator=None):
-    while True:
-        user_input = input(prompt)
-        if user_input.lower() == 'menu':
-            return 'M'
-        try:
-            user_input = input_type(user_input)
-            if validator and not validator(user_input):
-                raise ValueError
-            return user_input
-        except ValueError:
-            print("Por favor, introduce un valor válido.")
-
-def is_alpha(string):
-    """
-    Check if a given string consists only of alphabetic characters.
-
-    Args:
-        string (str): The string to be checked.
-
-    Returns:
-        bool: True if the string consists only of alphabetic characters, False otherwise.
-    """
-
-    return string.isalpha()
-
-def age_limit(age):
-    """
-    Check if the given age is within the valid range of 0 to 130.
-
-    Args:
-        age (int): The age to be checked.
-
-    Returns:
-        bool: True if the age is within the valid range, False otherwise.
-    """
-    if age < 0 or age > 130:
-        print("Porfavor introduce una edad entre 0 y 130")
-        return False
-    return True
-
-def id_check(id):
-    """
-    Check if the given ID is within the valid range of 1 to 2000000000.
-
-    Args:
-        id (int): The ID to be checked.
-
-    Returns:
-        bool: True if the ID is within the valid range, False otherwise.
-    """
-    if id < 1 or id > 2000000000:
-        print("Porfavor introduce un ID entre 1 y 2000000000")
-        return False
-    return True
-
-def name_model(name):
-    name = name.lower()
-    name = name[0].upper() + name[1:]
-
+from funcionalidad.getUserInput import get_user_input, name_model, is_alpha, id_check, age_limit, is_in_options
 
 def create_client():
+        """
+        Creates a new client object by prompting the user for their name, ID, and age.
+
+        Returns:
+            - A new Client object with the provided name, ID, and age.
+            - 'M' if the user enters 'menu' to return to the menu.
+
+        Raises:
+            - None
+
+        Notes:
+            - This function uses the get_user_input function to prompt the user for their name, ID, and age.
+            - The name is validated using the is_alpha validator function.
+            - The ID is validated using the id_check validator function.
+            - The age is validated using the age_limit validator function.
+        """
         print("Por favor ingresa tus datos (o ingresa 'menu' para volver al menú)")
         name = get_user_input("Ingresa tu nombre: ", str, validator=is_alpha)
         if name == 'M':
@@ -83,15 +39,10 @@ def type_ticket():
     Returns a tuple containing the selected ticket type (General or VIP) and its corresponding price.
     """
     print("Coloque el número del tipo de boleto que desea comprar: \n1. General\n2. Vip\n")
-    while True:
-        try:
-            option = int(input())
-            if option not in [1, 2]:
-                print("Porfavor introduce un valor entre 1 y 2")
-            else:
-                break
-        except ValueError:
-            print("Porfavor introduce un valor numerico")
+    option = get_user_input("", int, lambda x: is_in_options(x, [1, 2]))
+    # Lambda functions are small anonymous functions defined with the lambda keyword. 
+    # They can have any number of arguments, but only one expression. The expression is evaluated and returned.
+    # Lambda was taken from the official Python documentation.
     if option == 1:
         ticket_type = "General"
         price = 35
@@ -101,6 +52,15 @@ def type_ticket():
     return ticket_type, price
 
 def vampire_number(id):
+        """
+        Determines if a given number is a vampire number.
+
+        Args:
+            id (int): The number to be checked.
+
+        Returns:
+            bool: True if the number is a vampire number, False otherwise.
+        """
         
         if id < 1260:  # The smallest vampire number is 1260
             return False
