@@ -49,7 +49,6 @@ def main():
         fetch_data(url, key)
 
     app = App(data)
-    print("Funcionando")
 
     app.menu()
 

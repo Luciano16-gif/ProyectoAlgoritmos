@@ -77,6 +77,7 @@ def find_highest_tickets_sold_match(matches):
     return max(matches, key=lambda match: len(match.tickets), default=None)
 
 def find_top_selling_products(products):
+    top_sellin = []
     """
     Sorts the list of products in descending order based on the quantity sold.
     Returns the top 3 selling products.
@@ -88,7 +89,14 @@ def find_top_selling_products(products):
         list: A list of the top 3 selling products.
     """
     products.sort(key=lambda product: product.quantity, reverse=True)
-    return products[:3]
+    for i in range(len(products)):
+        if products[i] not in top_sellin:
+            top_sellin.append(products[i])
+            print(products[i])
+            if len(top_sellin) == 3:
+                break
+    return top_sellin
+   
 
 def find_top_clients(clients):
     """

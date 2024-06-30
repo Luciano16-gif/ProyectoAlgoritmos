@@ -1,8 +1,8 @@
-Promedio de gasto de un cliente VIP en un partido: 8532.69$
+Promedio de gasto de un cliente VIP en un partido: 8590.69$
 
 Tabla de asistencia porcentual a los partidos (mejor a peor):
 [1] Germany vs Scotland en Estadio Rhein Energie: Boletos vendidos: 1, Personas que asistieron: 1, Relación asistencia/venta: 100.00%
-[2] Ukraine vs Belgium en Volksparkstadion: Boletos vendidos: 4, Personas que asistieron: 3, Relación asistencia/venta: 75.00%
+[2] Ukraine vs Belgium en Volksparkstadion: Boletos vendidos: 6, Personas que asistieron: 3, Relación asistencia/venta: 50.00%
 [3] Hungary vs Switzerland en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
 [4] Spain vs Croatia en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
 [5] Italy vs Albania en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
@@ -40,15 +40,15 @@ Tabla de asistencia porcentual a los partidos (mejor a peor):
 
 Partido con mayor asistencia: Ukraine vs Belgium con 3
 
-Partido con mayor boletos vendidos: Ukraine vs Belgium con 4
+Partido con mayor boletos vendidos: Ukraine vs Belgium con 6
 
 Top 3 productos más vendidos en el restaurante:
 Práctico Plástico Bicicleta - Cantidad vendida: 14998
-Práctico Plástico Bicicleta - Cantidad vendida: 14998
-Práctico Plástico Bicicleta - Cantidad vendida: 14998
+Inteligente Plástico Pelota - Cantidad vendida: 14985
+Genérico Algodón Pollo - Cantidad vendida: 14966
 
 Top 3 clientes (que más compraron boletos):
+Elpepe - Boletos comprados: 3
 Mauricio - Boletos comprados: 2
 Luciano - Boletos comprados: 1
-Luigi - Boletos comprados: 1
 

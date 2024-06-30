@@ -98,7 +98,6 @@ def show_cart(client):
             print(f"[{i}] {product}")
     
         # Check if the client's id is a perfect number
-        print(is_perfect_number(client.id))
         if is_perfect_number(client.id):
                 total -= round(total * 0.15, 2)
                 print("Felicidades, tu cedula es un número perfecto!!!, disfruta de un 15% de descuento")

@@ -38,5 +38,21 @@
         "seat": 2,
         "code": 4309647800447041846,
         "used": false
+    },
+    {
+        "client_id": 28,
+        "match_id": "308f9bff-1692-4992-8bd6-0ef03e95f0e3",
+        "ticket_type": "VIP",
+        "seat": 2,
+        "code": 1798847741572955828,
+        "used": false
+    },
+    {
+        "client_id": 28,
+        "match_id": "308f9bff-1692-4992-8bd6-0ef03e95f0e3",
+        "ticket_type": "VIP",
+        "seat": 3,
+        "code": 8306488497674954253,
+        "used": false
     }
 ]
