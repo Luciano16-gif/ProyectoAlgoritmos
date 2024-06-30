@@ -377,17 +377,16 @@ class App:
         else:
             while True:
                 client = create_client()
+                if client == 'M':
+                    return 'M'
                 if any(clients.id == client.id for clients in self.clients):
+                    # Check if any existing client has the same ID as the new client
+                    # The any() function returns True if any element of the iterable is true. If the iterable is empty, return False.
+                    # Taken from the official Python documentation
                     print("Ya existe un cliente con ese ID")
                     return
                 break	
-
-        if client == 'M':
-            return 'M'
             
-            # Check if any existing client has the same ID as the new client
-            # The any() function returns True if any element of the iterable is true. If the iterable is empty, return False.
-            # Taken from the official Python documentation
                 
         
 

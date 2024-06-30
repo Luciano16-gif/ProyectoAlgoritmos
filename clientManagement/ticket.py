@@ -1,7 +1,5 @@
 # ticket.py
 
-from gestionDeClientes.client import Client
-
 class Ticket:
     def __init__(self, client, match, ticket_type, seat, code = None, used = False):
         """
