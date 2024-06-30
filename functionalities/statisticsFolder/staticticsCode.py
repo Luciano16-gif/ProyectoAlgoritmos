@@ -92,7 +92,6 @@ def find_top_selling_products(products):
     for i in range(len(products)):
         if products[i] not in top_sellin:
             top_sellin.append(products[i])
-            print(products[i])
             if len(top_sellin) == 3:
                 break
     return top_sellin

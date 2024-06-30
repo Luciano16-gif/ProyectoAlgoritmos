@@ -79,3 +79,6 @@ class Stadium:
     def __str__(self) -> str:
         restaurantes_str = "\n  ".join([str(f"{restaurant}\n") for restaurant in self.restaurants])
         return f"Estadio: {self.name}, Ubicación: {self.location}\n Restaurantes:\n  {restaurantes_str}"
+    
+    def show_name(self):
+        return f"{self.name}"

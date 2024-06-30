@@ -533,6 +533,8 @@ class App:
                         print(f"[{i}] {match}\n")
     
                 elif option == 2:
+                    for i, stadium in enumerate(self.stadiums, 1):
+                        print(f"[{i}] {stadium.show_name()}")
                     stadium = get_user_input("Coloca el nombre del estadio: ", str)
                     if stadium == "M":
                         continue
