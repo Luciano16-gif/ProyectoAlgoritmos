@@ -380,6 +380,7 @@ class App:
                 if any(clients.id == client.id for clients in self.clients):
                     print("Ya existe un cliente con ese ID")
                     return
+                break	
 
         if client == 'M':
             return 'M'
