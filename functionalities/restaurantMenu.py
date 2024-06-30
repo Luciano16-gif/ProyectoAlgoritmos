@@ -1,7 +1,7 @@
 #restaurantMenu.py
 
-from funcionalidad.getUserInput import get_user_input, is_in_options, is_alpha
-from funcionalidad.buyProduct import validate_product, show_cart
+from functionalities.getUserInput import get_user_input, is_in_options, is_alpha
+from functionalities.buyProduct import validate_product, show_cart
 
 
 def restaurant_menu(client, restaurants):

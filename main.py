@@ -1,6 +1,6 @@
 # main.py
 
-from funcionalidad.App import App
+from functionalities.App import App
 import requests
 
 data = {

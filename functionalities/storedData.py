@@ -1,6 +1,6 @@
 import os
 import json
-from gestionDeClientes.client import Client
+from clientManagement.client import Client
 
 class Stored_Data():
     def __init__(self):

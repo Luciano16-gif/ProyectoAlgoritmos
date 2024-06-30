@@ -1,15 +1,15 @@
 # app.py
 
-from gestionDePartidosyEstadios.MatchInfo import MatchInfo
-from gestionDePartidosyEstadios.stadium import Stadium
-from gestionDePartidosyEstadios.teams import Teams
-from gestionDeClientes.ticket import Ticket
-from funcionalidad.buyTicket import create_client, type_ticket
-from funcionalidad.getUserInput import is_alpha, get_user_input, is_in_options
-from funcionalidad.specialNumbers import vampire_number
-from funcionalidad.storedData import Stored_Data
-from funcionalidad.restaurantMenu import restaurant_menu
-from funcionalidad.statisticsFolder.staticticsCode import write_statistics_to_file
+from matchesManagement.MatchInfo import MatchInfo
+from matchesManagement.stadium import Stadium
+from matchesManagement.teams import Teams
+from clientManagement.ticket import Ticket
+from functionalities.buyTicket import create_client, type_ticket
+from functionalities.getUserInput import is_alpha, get_user_input, is_in_options
+from functionalities.specialNumbers import vampire_number
+from functionalities.storedData import Stored_Data
+from functionalities.restaurantMenu import restaurant_menu
+from functionalities.statisticsFolder.staticticsCode import write_statistics_to_file
 import json
 
 loaded_data = Stored_Data()

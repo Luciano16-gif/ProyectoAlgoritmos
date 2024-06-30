@@ -1,7 +1,7 @@
 # buyTicket.py
 
-from gestionDeClientes.client import Client
-from funcionalidad.getUserInput import get_user_input, name_model, is_alpha, id_check, age_limit, is_in_options
+from clientManagement.client import Client
+from functionalities.getUserInput import get_user_input, name_model, is_alpha, id_check, age_limit, is_in_options
 
 def create_client():
         """

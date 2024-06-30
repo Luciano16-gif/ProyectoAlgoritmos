@@ -1,7 +1,7 @@
 # buyProduct.py
 
-from funcionalidad.getUserInput import get_user_input, is_in_options
-from funcionalidad.specialNumbers import is_perfect_number
+from functionalities.getUserInput import get_user_input, is_in_options
+from functionalities.specialNumbers import is_perfect_number
 
 def another_one():
     """
