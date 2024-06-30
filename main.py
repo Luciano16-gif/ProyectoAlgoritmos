@@ -31,6 +31,14 @@ def fetch_data(url, key):
         print(f"Error al obtener los datos de {key}: {e}")
 
 def main():
+    """
+    Fetches data from the specified URLs and initializes an App instance with the fetched data.
+    
+    This function defines a dictionary of URLs for different data types, such as teams, stadiums, and matches.
+    It then iterates over the dictionary, calling the fetch_data function for each URL to fetch the data.
+    After fetching all the data, it initializes an App instance with the fetched data and prints "Funcionando".
+    Finally, it calls the menu method of the App instance.
+    """
     urls = {
         "teams": "https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/main/teams.json",
         "stadiums": "https://raw.githubusercontent.com/Algoritmos-y-Programacion/api-proyecto/main/stadiums.json",

@@ -4,10 +4,11 @@ class MatchInfo:
     def __init__(self, id, local_team, visitor_team, date, stadium) -> None:
         """
         Initializes a new instance of the MatchInfo class.
-    
+
         Args:
-            local_team (Teams): The local team.
-            visitor_team (Teams): The visiting team.
+            id (int): The unique identifier of the match.
+            local_team (Teams): The local team playing in the match.
+            visitor_team (Teams): The visiting team playing in the match.
             date (str): The date of the match.
             stadium (Stadium): The stadium where the match is being played.
 

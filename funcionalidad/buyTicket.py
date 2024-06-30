@@ -1,5 +1,6 @@
+# buyTicket.py
+
 from gestionDeClientes.client import Client
-from gestionDeClientes.ticket import Ticket
 from funcionalidad.getUserInput import get_user_input, name_model, is_alpha, id_check, age_limit, is_in_options
 
 def create_client():

@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Increible Granito Bicicleta",
+        "quantity": 10944,
+        "stock": 387,
+        "adicional": "plate",
+        "price": 605.0
+    },
+    {
+        "name": "Gen\u00e9rico Madera Teclado",
+        "quantity": 14395,
+        "stock": 362,
+        "adicional": "plate",
+        "price": 603.0
+    },
+    {
+        "name": "R\u00fastico Madera Silla",
+        "quantity": 14547,
+        "stock": 386,
+        "adicional": "non-alcoholic",
+        "price": 334.0
+    }
+]

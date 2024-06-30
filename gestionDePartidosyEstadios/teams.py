@@ -19,4 +19,7 @@ class Teams:
         self.group = group
 
     def __str__(self):
+        """
+        A special method that returns a formatted string representing the Teams object with its name, FIFA code, and group.
+        """
         return f"Nombre: {self.name}, Código FIFA: {self.fifa_code}, Grupo: {self.group}"

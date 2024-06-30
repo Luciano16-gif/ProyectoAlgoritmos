@@ -1,0 +1,42 @@
+[
+    {
+        "client_id": 1,
+        "match_id": "1304daa3-c591-464e-adbc-192538de2e40",
+        "ticket_type": "VIP",
+        "seat": 1,
+        "code": 1001,
+        "used": true
+    },
+    {
+        "client_id": 2,
+        "match_id": "308f9bff-1692-4992-8bd6-0ef03e95f0e3",
+        "ticket_type": "General",
+        "seat": 1,
+        "code": 6794810172467074373,
+        "used": true
+    },
+    {
+        "client_id": 28,
+        "match_id": "308f9bff-1692-4992-8bd6-0ef03e95f0e3",
+        "ticket_type": "VIP",
+        "seat": 12,
+        "code": -5971062677384126958,
+        "used": true
+    },
+    {
+        "client_id": 33550336,
+        "match_id": "308f9bff-1692-4992-8bd6-0ef03e95f0e3",
+        "ticket_type": "VIP",
+        "seat": 1,
+        "code": 9202721829419738212,
+        "used": true
+    },
+    {
+        "client_id": 33550336,
+        "match_id": "308f9bff-1692-4992-8bd6-0ef03e95f0e3",
+        "ticket_type": "General",
+        "seat": 2,
+        "code": 4309647800447041846,
+        "used": false
+    }
+]

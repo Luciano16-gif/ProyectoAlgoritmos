@@ -1,11 +1,20 @@
+# app.py
+
 from gestionDePartidosyEstadios.MatchInfo import MatchInfo
 from gestionDePartidosyEstadios.stadium import Stadium
 from gestionDePartidosyEstadios.teams import Teams
 from gestionDeClientes.ticket import Ticket
 from funcionalidad.buyTicket import create_client, type_ticket
 from funcionalidad.getUserInput import is_alpha, get_user_input, is_in_options
-from funcionalidad.buyProduct import validate_product, are_you_sure, show_cart
 from funcionalidad.specialNumbers import vampire_number
+from funcionalidad.storedData import Stored_Data
+from funcionalidad.restaurantMenu import restaurant_menu
+from funcionalidad.statisticsFolder.staticticsCode import write_statistics_to_file
+import json
+
+loaded_data = Stored_Data()
+
+
 
 class App:
     def __init__(self, data) -> None:
@@ -13,16 +22,19 @@ class App:
         Initializes a new instance of the App class.
 
         Args:
-            data (dict): La data que contiene el JSON.
+            data (dict): the data that contains the JSON.
 
         Returns:
             None
         """
+
         self.data = data
         self.teams = []
         self.stadiums = []
         self.matches = []
         self.clients = []
+        self.products_for_storing = []
+        self.products = []
         self.register_data()
 
     def register_data(self):
@@ -37,9 +49,14 @@ class App:
         Returns:
             None
         """
+
         self.register_teams()
         self.register_stadiums()
         self.register_matches()
+        self.register_clients()
+        self.register_tickets()
+        self.update_products()
+        self.store_data()
 
     def register_teams(self):
         """
@@ -65,10 +82,6 @@ class App:
         """
         for stadium in self.data['stadiums']:
             self.stadiums.append(Stadium(stadium['id'],stadium['name'], stadium['city'], stadium['capacity'][0], stadium['capacity'][1], stadium['restaurants']))
-            for stadium in self.stadiums:
-                for restaurant in stadium.restaurants:
-                    for product in restaurant.products:
-                        print(type(product.price))
 
         
     def register_matches(self):
@@ -83,6 +96,7 @@ class App:
         Returns:
             None
         """
+        
         for match in self.data['matches']:
             local_team = next((team for team in self.teams if team.fifa_code == match['home']['code']), None) 
             # next() found in the official Python documentation
@@ -90,6 +104,141 @@ class App:
             visitor_team = next((team for team in self.teams if team.fifa_code == match['away']['code']), None)
             stadium = next((stadium for stadium in self.stadiums if stadium.id == match['stadium_id']), None)
             self.matches.append(MatchInfo(match['id'], local_team, visitor_team, match['date'], stadium))
+
+    def register_clients(self):
+        """
+        Registers the clients by assigning the `clients` attribute of the `App` instance with the `clients` attribute of the `loaded_data` object.
+
+        This function does not take any parameters.
+
+        Returns:
+            None
+        """
+        self.clients = loaded_data.clients
+
+    def register_tickets(self):
+        """
+        Registers tickets by iterating through the `loaded_data.tickets` list and creating `Ticket` objects for each ticket.
+
+        This function assigns the `client` and `match` variables by searching for the client and match with the corresponding IDs in the `self.clients` and 
+        `self.matches` lists. If a client and match are found, a `Ticket` object is created with the provided ticket information.
+
+        The ticket object is then appended to the `match.tickets` list and the `client.match_tickets` list. The `client.total_tickets` and `match.used_tickets` 
+        lists are also updated accordingly.
+
+        If the ticket type is 'VIP', the `match.taken_vip_seats` list is updated and `client.total_tickets_vip` is incremented. Otherwise, the 
+        `match.taken_general_seats` list is updated and `client.total_tickets_general` is incremented.
+
+        Parameters:
+            self (App): The App instance.
+
+        Returns:
+            None
+        """
+        for ticket in loaded_data.tickets:
+            client = next((client for client in self.clients if client.id == ticket['client_id']), None)
+    
+            match = next((match for match in self.matches if match.id == ticket['match_id']), None)
+            ticket_type = ticket['ticket_type']
+            seat = ticket['seat']
+            code = ticket['code']
+            used = ticket['used']
+            
+            if client and match:
+                ticket_object = Ticket(client, match, ticket_type, seat, code, used)
+        
+                # Append the ticket object correctly
+                if ticket_type == 'VIP':
+                    match.taken_vip_seats.append(ticket_object.seat)
+                    client.total_tickets_vip += 1
+                else:
+                    match.taken_general_seats.append(ticket_object.seat)
+                    client.total_tickets_general += 1
+                
+                # Update client's ticket list
+                client.total_tickets += 1
+                match.tickets.append(ticket_object)
+                client.match_tickets.append(ticket_object)
+
+                if ticket_object.used:
+                    match.used_tickets.append(ticket_object)
+
+    def update_products(self):
+        """
+        Updates the products in the App instance by iterating through the loaded product data.
+        For each loaded product, it searches for a matching product in the App instance's products list.
+        If a matching product is found, it updates its stock and quantity with the values from the loaded product.
+        The updated product is then appended to the products_for_storing list.
+
+        Parameters:
+            self (App): The App instance.
+
+        Returns:
+            None
+        """
+        product_stored_data = loaded_data.products
+
+        for loaded_product in product_stored_data:
+            for stadium in self.stadiums:
+                for restaurant in stadium.restaurants:
+                    for product in restaurant.products:
+                        self.products.append(product)
+                        if product.name == loaded_product['name'] and product.adicional == loaded_product['adicional'] and product.price == loaded_product['price']:
+                            product.stock = loaded_product['stock']
+                            product.quantity = loaded_product['quantity']
+                            self.products_for_storing.append(product)
+        
+                  
+        
+    def store_data(self):
+        """
+        Stores clients, tickets, and products data to JSON files after processing and updating the data accordingly.
+        """
+        
+        # store clients data 
+        clients_path = loaded_data.get_routes('clients.json')
+        clients_data = [{'name': client.name, 'id': client.id, 'age': client.age, 'spent': round(client.spent, 2)} for client in self.clients]
+        with open(clients_path, 'w') as f:
+            json.dump(clients_data, f, indent=4)
+
+        # store tickets data
+        tickets_path = loaded_data.get_routes('tickets.json')
+        tickets_data = [{'client_id': ticket.client.id, 'match_id': ticket.match.id, 'ticket_type': ticket.ticket_type, 'seat': ticket.seat, 'code': ticket.code, 'used': ticket.used} for match in self.matches for ticket in match.tickets]
+        with open(tickets_path, 'w') as f:
+            json.dump(tickets_data, f, indent=4)
+
+        # store products data
+
+        products_path = loaded_data.get_routes('products.json')
+
+        with open(products_path, 'r') as f:
+            products_data = json.load(f)
+        
+        # Iterate over the new products to update or append
+        for bought_product in self.products_for_storing:
+            new_product = {
+                'name': bought_product.name,
+                'quantity': bought_product.quantity,
+                'stock': bought_product.stock,
+                'adicional': bought_product.adicional,
+                'price': bought_product.price
+            }
+        
+            # Check if the product exists and update if found
+            product_found = False
+            for product in products_data:
+                if product['name'] == new_product['name']:
+                    product.update(new_product)
+                    product_found = True
+                    break
+        
+            # If the product does not exist, append it as a new product
+            if not product_found:
+                products_data.append(new_product)
+        
+        # Save the updated products data back to JSON file
+        with open(products_path, 'w') as f:
+            json.dump(products_data, f, indent=4)
 
     def search_team_name_matches(self, name):
         """
@@ -153,6 +302,17 @@ class App:
 
     # Print the map
     def create_map(self, match_id, ticket_type):
+        """
+        Create a map for a specific match and ticket type.
+
+        Args:
+            self: The object instance
+            match_id: The ID of the match to create a map for
+            ticket_type: The type of ticket to determine the capacity and taken seats
+
+        Returns:
+            None
+        """
         match = next((match for match in self.matches if match.id == match_id), None)
 
         stadium = match.stadium
@@ -191,24 +351,42 @@ class App:
 
     # Handles the purchase of a ticket for a specific match
     def create_ticket(self):
+        """
+        Creates a ticket for a match based on user input. The function prompts the user to enter the ID of the match they want to buy a ticket for. If the match is not found, the function prints "Partido no encontrado" and returns. The function then asks the user if they are already registered. If the user is already registered, they are prompted to enter their ID to validate their registration. If the ID is not found, the function prints "Cliente no encontrado" and returns. If the user is not registered, they are prompted to create a new client. The function checks if a client with the same ID already exists and if so, prompts the user to enter a different ID. The function then prints the client information and prompts the user to choose a ticket type and price. If the client's ID is a vampire number, the price is discounted by 50%. The function then calculates the final price including tax and prints it. The user is then prompted to confirm their purchase. If the user confirms, the function creates a map of the match and prompts the user to choose a seat. The function checks if the seat is available and if not, prompts the user to choose a different seat. Once a seat is chosen, the function creates a ticket object and updates the match and client information. The ticket is added to the list of tickets for the match and the client is added to the list of clients if they are not already in it. Finally, the function prints the ticket information and returns.
+        
+        Parameters:
+            self (App): An instance of the App class.
+        
+        Returns:
+            None
+        """
         id = get_user_input("Para comprar una entrada, introduce el id del partido: ")
         match = next((match for match in self.matches if match.id == id), None)
         if not match:
             print("Partido no encontrado")
             return
-        while True:
-            client = create_client()
+        already_client = get_user_input("Ya estás registrado? (s/n) ", str, lambda x: is_in_options(x, ["s", "n"]))
+        if already_client == 'M':
+            return 
+        if already_client == 's':
+            client_id = get_user_input("Introduce tu ID para validar que estas registrado: ", int)
+            client = next((client for client in self.clients if client.id == client_id), None)
+            if not client:
+                print("Cliente no encontrado")
+                return
+        else:
+            while True:
+                client = create_client()
+                if any(clients.id == client.id for clients in self.clients):
+                    print("Ya existe un cliente con ese ID")
+                    return
 
-            if client == 'M':
-                return 'M'
+        if client == 'M':
+            return 'M'
             
             # Check if any existing client has the same ID as the new client
             # The any() function returns True if any element of the iterable is true. If the iterable is empty, return False.
             # Taken from the official Python documentation
-            if any(existing_client.id == client.id for existing_client in self.clients):
-                print("Ya existe un cliente con ese ID. Por favor, intente con otro ID.")
-            else:
-                break
                 
         
 
@@ -235,8 +413,6 @@ class App:
         if answer == 'n':
             print("Entrada no comprada")
             return
-        
-        client.spent += final_price # Add the cost of the ticket to the client's total spent
 
         self.create_map(id, ticket_type)
         print("Coloque el número del asiento en el que quiere la entrada, si el asiento esta rojo es que no esta disponible (la fila frontal es la 1): ")
@@ -268,7 +444,8 @@ class App:
         else:
             match.taken_general_seats.append(seat)
             client.total_tickets_general += 1   
-
+        
+        client.spent += round(final_price, 2) # Add the cost of the ticket to the client's total spent
         client.total_tickets += 1
         client.match_tickets.append(ticket)
 
@@ -285,14 +462,22 @@ class App:
             self.clients.append(client)
 
     def enter_stadium(self):
-        match_id = get_user_input("Coloca el ID del partido: ")
-        if match_id == "M":
-            return
-        match = next((match for match in self.matches if match.id == match_id), None)
-        if not match:
-            print("Partido no encontrado")
-            return
-            
+        """
+        Validates a user's ticket entry into a stadium.
+
+        This function prompts the user to enter the ticket code and seat number for their entry. It then searches for a ticket with the provided code and seat number in the list of matches. If a ticket is found and it has not been used, the function sets the ticket's 'used' attribute to True and returns the client, ticket type, and restaurants associated with the stadium. If the ticket is not found or has already been used, the function prints a message indicating that the entry could not be validated and returns None.
+
+        Parameters:
+            None
+
+        Returns:
+            - If the ticket is valid and has not been used:
+                - client (Client): The client associated with the ticket.
+                - ticket_type (str): The type of the ticket.
+                - restaurants (list): The restaurants associated with the stadium.
+            - If the ticket is not found or has already been used:
+                - None
+        """
         ticket_code = get_user_input("Coloca el código de la entrada: ", int)
         if ticket_code == "M":
             return
@@ -300,142 +485,30 @@ class App:
         ticket_seat = get_user_input("Coloca el número del asiento de la entrada: ", int)
         if ticket_seat == "M":
             return
-
-        ticket = next((ticket for ticket in match.tickets if ticket.code == ticket_code and ticket.seat == ticket_seat), None)
-
-        if ticket is not None and ticket not in match.used_tickets:
-            print("Su entrada ha sido validada")
-            print(ticket)
-            match.used_tickets.append(ticket)
-            return ticket.client, ticket.ticket_type, match.stadium.restaurants
-        else:
-            print("No ha sido posible validar su entrada")
-
-            
-    def restaurant_menu(self, client, restaurants):
-        temp_products = []
-        while True:
-            print("-----------------------------------------")
-            print("Coloca el número de lo que quieres buscar, para devolverte a este menu escribe 'menu': ")
-            print("Recomendación: Primero selecciona 4 para ver todos los productos")
-            print("1. Buscar por nombre para comprar")
-            print("2. Buscar por tipo para comprar")
-            print("3. Buscar por rango de precio para comprar")
-            print("4. Listar todos los productos para comprar")
-            print("5. Ver todos los restaurantes disponibles y sus productos")
-            print("6. Ver carrito, completar compra, borrar productos del carrito")
-            print("7. Salir")
-            print("-----------------------------------------")
-
-            option = get_user_input("", int)
-            if option == 1:
-                name = get_user_input("Coloca el nombre de lo que desee comprar: ", str, validator=is_alpha)
-
-                if name == "M":
-                    continue
-
-                for restaurant in restaurants:
-                    for product in restaurant.products:
-                        if name.lower() in product.name.lower():
-                            temp_products.append(product)
-
-                if not temp_products:
-                    print("No se han encontrado resultados")
-                    continue
-                else:
-                    for i, product in enumerate(temp_products, 1):
-                        print(f"[{i}] {product}")
-                
-                validate_product(temp_products, client)
-                for car in client.cart:
-                    print(car)
-            elif option == 2:
-                # Search by type
-                
-                adicional_values = ["plate", "package", "alcoholic", "non-alcoholic"] # list of the true values of adicional
-                additional_names = ["Plato", "Paquete", "Bebida alcoholica", "Bebida no alcoholica"] # list of the names that will be shown
-
-                for i, adittional in enumerate(additional_names, 1):
-                    print(f"[{i}] {adittional}")
-                    print("Ponga el número del tipo de producto que desea comprar")
-
-                option = get_user_input("", int, lambda x: is_in_options(x, [1, 2, 3, 4]))
-                if option == "M":
-                    continue
-                product_type = adicional_values[option - 1] # get the true value of adicional
-
-
-                for restaurant in restaurants:
-                    for product in restaurant.products:
-                        if product_type in product.type:
-                            temp_products.append(product)
-
-                if not temp_products:
-                    print("No se han encontrado resultados")
-                    continue
-                else:
-                    for i, product in enumerate(temp_products, 1):
-                        print(f"[{i}] {product}")
-
-                validate_product(temp_products, client)
-                for car in client.cart:
-                    print(car) 
-
-            elif option == 3:
-                # Search by price range
-                print("Ponga el rango de precio que desea comprar")
-                min_price = get_user_input("", int, lambda x: x >= 0)
-                if min_price == "M":
-                    continue
-                max_price = get_user_input("", int, lambda x: x >= min_price)
-                if max_price == "M":
-                    continue
-                
-
-                for restaurant in restaurants:
-                    for product in restaurant.products:
-                        if min_price <= product.price <= max_price:
-                            temp_products.append(product)
-
-                if not temp_products:
-                    print("No se han encontrado resultados")
-                    continue
-                else:
-                    for i, product in enumerate(temp_products, 1):
-                        print(f"[{i}] {product}")
-                
-                validate_product(temp_products, client)
-                for car in client.cart:
-                    print(car)
-            elif option == 4:
-                # List all products
-                for restaurant in restaurants:
-                    for i, product in enumerate(restaurant.products, 1):
-                        temp_products.append(product)
-
-                if not temp_products:
-                    print("No se han encontrado resultados")
-                    continue
-                else:
-                    for i, product in enumerate(temp_products, 1):
-                        print(f"[{i}] {product}")
-
-                validate_product(temp_products, client)
-                for car in client.cart:
-                    print(car)
-            elif option == 5:
-                for restaurant in restaurants:
-                    print(restaurant)
-            elif option == 6:
-                show_cart(client)
-            elif option == 7:
-                print("Hasta pronto!!!")
-                return
-            else:
-                print("Porfavor coloque una opcion válida") 
+    
+        ticket = next((ticket for match in self.matches for ticket in match.tickets if ticket.code == ticket_code and ticket.seat == ticket_seat), None)
+    
+        if ticket:
+            match = next((match for match in self.matches if match == ticket.match), None)
+            if ticket not in match.used_tickets:
+                print("Su entrada ha sido validada")
+                ticket.used = True
+                match.used_tickets.append(ticket)
+                return ticket.client, ticket.ticket_type, match.stadium.restaurants
+        print("No ha sido posible validar su entrada")
+        return None
 
 
     def menu(self):
+        """
+        Displays a menu of options for the user to choose from and performs the corresponding action based on the user's selection.
+        
+        Returns:
+            None
+        
+        Raises:
+            None
+        """
         while True:
             try:
                 print("-----------------------------------------")
@@ -446,6 +519,7 @@ class App:
                 print("4. Listar todos los partidos")
                 print("5. Comprar una entrada con la id del partido")                               
                 print("6. Entrar al estadio")
+                print("7. Ver tus entradas")
                 print("10. Salir")
                 print("-----------------------------------------")
         
@@ -482,16 +556,34 @@ class App:
                     self.create_ticket()
 
                 elif option == 6:
-                    client, ticket, restaurants = self.enter_stadium()
-                    if client is not None:
-                        print(client)
-                    if ticket == "VIP":
-                        print("Bienvenido, su entrada es VIP, lo que significa que tiene acceso a los restaurantes!!!")
-                        self.restaurant_menu(client, restaurants)
-                    else:
-                        print("Bienvenido, su entrada es general, no tiene acceso a los restaurantes")
-    
+                    data_to_enter = self.enter_stadium()
+
+                    if data_to_enter is not None:
+                        client, ticket_type, restaurants = data_to_enter
+
+                        if client is not None:
+                            print(client)
+
+                        if ticket_type == "VIP":
+                            print("Bienvenido, su entrada es VIP, lo que significa que tiene acceso a los restaurantes!!!")
+                            changed_products = restaurant_menu(client, restaurants)
+                            if changed_products:
+                                self.products_for_storing.extend(changed_products)
+                                # The extend() method adds all elements of the iterable (in this case, changed_products) 
+                                # to the end of the list (self.products_for_storing). 
+                                # https://docs.python.org/3/tutorial/datastructures.html#more-on-lists
+
+                        else:
+                            print("Bienvenido, su entrada es general, no tiene acceso a los restaurantes")
+                elif option == 7:
+                    id = get_user_input("Coloca tu ID: ", int)
+                    if id == "M":
+                        continue
+                    client = next((client for client in self.clients if client.id == id), None)
+                    print(client)
                 elif option == 10:
+                    self.store_data()
+                    write_statistics_to_file(self.clients, self.matches, self.products)
                     print("Hasta pronto!")
                     break
                 else:

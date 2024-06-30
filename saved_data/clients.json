@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Luciano",
+        "id": 1,
+        "age": 30,
+        "spent": 87.0
+    },
+    {
+        "name": "Luigi",
+        "id": 6,
+        "age": 1,
+        "spent": 40.6
+    },
+    {
+        "name": "Luigi",
+        "id": 2,
+        "age": 17,
+        "spent": 40.6
+    },
+    {
+        "name": "Elpepe",
+        "id": 28,
+        "age": 17,
+        "spent": 2396.21
+    },
+    {
+        "name": "Mauricio",
+        "id": 33550336,
+        "age": 20,
+        "spent": 23114.85
+    }
+]
