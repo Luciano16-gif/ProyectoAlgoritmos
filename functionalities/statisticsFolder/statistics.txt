@@ -1,41 +1,41 @@
-Promedio de gasto de un cliente VIP en un partido: 8590.69$
+Promedio de gasto de un cliente VIP en un partido: 6559.59$
 
 Tabla de asistencia porcentual a los partidos (mejor a peor):
 [1] Germany vs Scotland en Estadio Rhein Energie: Boletos vendidos: 1, Personas que asistieron: 1, Relación asistencia/venta: 100.00%
-[2] Ukraine vs Belgium en Volksparkstadion: Boletos vendidos: 6, Personas que asistieron: 3, Relación asistencia/venta: 50.00%
-[3] Hungary vs Switzerland en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[4] Spain vs Croatia en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[5] Italy vs Albania en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[6] Slovenia vs Denmark en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[7] Serbia vs England en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[8] Poland vs Netherlands en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[9] Austria vs France en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[10] Romania vs Ukraine en Signal Iduna Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[11] Belgium vs Slovakia en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[12] Turkey vs Georgia en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[13] Portugal vs Czech Republic en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[14] Germany vs Hungary en Merkur Spiel-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[15] Scotland vs Switzerland en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[16] Croatia vs Albania en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[17] Spain vs Italy en Allianz Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[18] Slovenia vs Serbia en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[19] Denmark vs England en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[20] Poland vs Austria en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[21] Netherlands vs France en Signal Iduna Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[22] Slovakia vs Ukraine en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[23] Belgium vs Romania en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[24] Georgia vs Czech Republic en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[25] Turkey vs Portugal en Merkur Spiel-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[26] Switzerland vs Germany en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[27] Scotland vs Hungary en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[28] Albania vs Spain en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[29] Croatia vs Italy en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[30] England vs Slovenia en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[31] Denmark vs Serbia en Allianz Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[32] Netherlands vs Austria en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[33] France vs Poland en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[34] Slovakia vs Romania en Allianz Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
-[35] Georgia vs Portugal en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[2] Georgia vs Portugal en Red Bull Arena: Boletos vendidos: 1, Personas que asistieron: 1, Relación asistencia/venta: 100.00%
+[3] Ukraine vs Belgium en Volksparkstadion: Boletos vendidos: 6, Personas que asistieron: 3, Relación asistencia/venta: 50.00%
+[4] Hungary vs Switzerland en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[5] Spain vs Croatia en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[6] Italy vs Albania en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[7] Slovenia vs Denmark en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[8] Serbia vs England en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[9] Poland vs Netherlands en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[10] Austria vs France en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[11] Romania vs Ukraine en Signal Iduna Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[12] Belgium vs Slovakia en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[13] Turkey vs Georgia en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[14] Portugal vs Czech Republic en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[15] Germany vs Hungary en Merkur Spiel-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[16] Scotland vs Switzerland en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[17] Croatia vs Albania en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[18] Spain vs Italy en Allianz Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[19] Slovenia vs Serbia en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[20] Denmark vs England en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[21] Poland vs Austria en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[22] Netherlands vs France en Signal Iduna Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[23] Slovakia vs Ukraine en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[24] Belgium vs Romania en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[25] Georgia vs Czech Republic en Deutsche Bank Park: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[26] Turkey vs Portugal en Merkur Spiel-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[27] Switzerland vs Germany en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[28] Scotland vs Hungary en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[29] Albania vs Spain en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[30] Croatia vs Italy en Veltins-Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[31] England vs Slovenia en Estadio Olímpico de Berlín: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[32] Denmark vs Serbia en Allianz Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[33] Netherlands vs Austria en MHPArena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[34] France vs Poland en Volksparkstadion: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
+[35] Slovakia vs Romania en Allianz Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
 [36] Czech Republic vs Turkey en Red Bull Arena: Boletos vendidos: 0, Personas que asistieron: 0, Relación asistencia/venta: 0.00%
 
 Partido con mayor asistencia: Ukraine vs Belgium con 3

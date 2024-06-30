@@ -141,9 +141,12 @@ def create_and_save_graphs(clients, matches, products):
     attendance_ratios = [entry["attendance_ratio"] * 100 for entry in attendance_table]
     fig, ax = plt.subplots()
     ax.barh(match_names, attendance_ratios)
-    ax.set_xlabel('Relación asistencia/venta (%)')
-    ax.set_title('Tabla de asistencia porcentual a los partidos')
-    plt.savefig(os.path.join(graphs_dir, "match_attendance.png"))
+    ax.set_xlabel('Relación asistencia/venta (%)', fontsize=10)
+    ax.set_title('Tabla de asistencia porcentual a los partidos', fontsize=12)
+    ax.tick_params(axis='y', labelsize=8)  # Adjust y-axis label size
+    plt.xticks(fontsize=8)
+    plt.yticks(ha='right', fontsize=6)  # Rotate y-axis labels for better readability
+    plt.savefig(os.path.join(graphs_dir, "match_attendance.png"), bbox_inches='tight')  # Ensure everything fits
     plt.close(fig)
     
     # 2. Graph for top 3 selling products
@@ -154,6 +157,7 @@ def create_and_save_graphs(clients, matches, products):
     ax.bar(product_names, product_quantities)
     ax.set_ylabel('Cantidad vendida')
     ax.set_title('Top 3 productos más vendidos en el restaurante')
+    ax.tick_params(axis='x', labelsize=8)
     plt.savefig(os.path.join(graphs_dir, "top_selling_products.png"))
     plt.close(fig)
     
@@ -165,6 +169,7 @@ def create_and_save_graphs(clients, matches, products):
     ax.bar(client_names, tickets_bought)
     ax.set_ylabel('Boletos comprados')
     ax.set_title('Top 3 clientes (que más compraron boletos)')
+    ax.tick_params(axis='x', labelsize=8)
     plt.savefig(os.path.join(graphs_dir, "top_clients.png"))
     plt.close(fig)
 

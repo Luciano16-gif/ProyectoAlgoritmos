@@ -19,5 +19,12 @@
         "stock": 386,
         "adicional": "non-alcoholic",
         "price": 334.0
+    },
+    {
+        "name": "Increible Pl\u00e1stico Pantalones",
+        "quantity": 340,
+        "stock": 248,
+        "adicional": "package",
+        "price": 327.0
     }
 ]

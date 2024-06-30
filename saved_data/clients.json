@@ -1,23 +1,5 @@
 [
     {
-        "name": "Luciano",
-        "id": 1,
-        "age": 30,
-        "spent": 87.0
-    },
-    {
-        "name": "Luigi",
-        "id": 6,
-        "age": 1,
-        "spent": 40.6
-    },
-    {
-        "name": "Luigi",
-        "id": 2,
-        "age": 17,
-        "spent": 40.6
-    },
-    {
         "name": "Elpepe",
         "id": 28,
         "age": 17,
@@ -28,5 +10,29 @@
         "id": 33550336,
         "age": 20,
         "spent": 23114.85
+    },
+    {
+        "name": "Luciano",
+        "id": 1,
+        "age": 30,
+        "spent": 87.0
+    },
+    {
+        "name": "Luigi",
+        "id": 2,
+        "age": 17,
+        "spent": 40.6
+    },
+    {
+        "name": "Luddy de los reyes",
+        "id": 16155016,
+        "age": 58,
+        "spent": 466.32
+    },
+    {
+        "name": "Luigi",
+        "id": 6,
+        "age": 1,
+        "spent": 40.6
     }
 ]

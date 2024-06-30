@@ -46,7 +46,7 @@ def validate_product(temp_products, client):
         - The function clears the temporary products list if the user chooses not to add another product.
         - The function breaks the loop if the user chooses to go back to the main menu.
     """
-    print("Ponga el número del producto que desee agregar a la compra, para devolverte a este menu escribe 'menu': ")
+    print("Ponga el número del producto que desee agregar a la compra, para devolverte a el menu escribe 'menu': ")
 
     while True:
         product = get_user_input("", int)

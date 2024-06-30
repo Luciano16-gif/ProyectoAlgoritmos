@@ -582,7 +582,10 @@ class App:
                     if id == "M":
                         continue
                     client = next((client for client in self.clients if client.id == id), None)
-                    print(client)
+                    if client is not None:
+                        print(client)
+                    else: 
+                        print("Cliente no encontrado")
                 elif option == 10:
                     self.store_data()
                     write_statistics_to_file(self.clients, self.matches, self.products)
