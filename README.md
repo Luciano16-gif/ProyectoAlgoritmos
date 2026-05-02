@@ -1,2 +1,2 @@
 # ProyectoAlgoritmos
-Proyecto para Algoritmos y Programación por Luciano
+Proyecto para Algoritmos y Programación
